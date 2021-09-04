@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		B5ECB95E26E23B4C00DA9A14 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECB95D26E23B4C00DA9A14 /* AppDelegate.swift */; };
 		B5ECB96026E23B4C00DA9A14 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECB95F26E23B4C00DA9A14 /* SceneDelegate.swift */; };
-		B5ECB96226E23B4C00DA9A14 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECB96126E23B4C00DA9A14 /* ViewController.swift */; };
+		B5ECB96226E23B4C00DA9A14 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECB96126E23B4C00DA9A14 /* StartViewController.swift */; };
 		B5ECB96526E23B4C00DA9A14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5ECB96326E23B4C00DA9A14 /* Main.storyboard */; };
 		B5ECB96726E23B4F00DA9A14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5ECB96626E23B4F00DA9A14 /* Assets.xcassets */; };
 		B5ECB96A26E23B4F00DA9A14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5ECB96826E23B4F00DA9A14 /* LaunchScreen.storyboard */; };
+		B5ECB97226E23ECA00DA9A14 /* MixColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5ECB97126E23ECA00DA9A14 /* MixColorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B5ECB95A26E23B4C00DA9A14 /* RGBProtocol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGBProtocol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5ECB95D26E23B4C00DA9A14 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5ECB95F26E23B4C00DA9A14 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B5ECB96126E23B4C00DA9A14 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B5ECB96126E23B4C00DA9A14 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		B5ECB96426E23B4C00DA9A14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B5ECB96626E23B4F00DA9A14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B5ECB96926E23B4F00DA9A14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B5ECB96B26E23B4F00DA9A14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5ECB97126E23ECA00DA9A14 /* MixColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixColorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +60,8 @@
 			children = (
 				B5ECB95D26E23B4C00DA9A14 /* AppDelegate.swift */,
 				B5ECB95F26E23B4C00DA9A14 /* SceneDelegate.swift */,
-				B5ECB96126E23B4C00DA9A14 /* ViewController.swift */,
+				B5ECB96126E23B4C00DA9A14 /* StartViewController.swift */,
+				B5ECB97126E23ECA00DA9A14 /* MixColorViewController.swift */,
 				B5ECB96326E23B4C00DA9A14 /* Main.storyboard */,
 				B5ECB96626E23B4F00DA9A14 /* Assets.xcassets */,
 				B5ECB96826E23B4F00DA9A14 /* LaunchScreen.storyboard */,
@@ -137,9 +140,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5ECB96226E23B4C00DA9A14 /* ViewController.swift in Sources */,
+				B5ECB96226E23B4C00DA9A14 /* StartViewController.swift in Sources */,
 				B5ECB95E26E23B4C00DA9A14 /* AppDelegate.swift in Sources */,
 				B5ECB96026E23B4C00DA9A14 /* SceneDelegate.swift in Sources */,
+				B5ECB97226E23ECA00DA9A14 /* MixColorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
