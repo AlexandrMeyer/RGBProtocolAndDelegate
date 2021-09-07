@@ -32,13 +32,14 @@ class MixColorViewController: UIViewController {
         greenValueTextField.delegate = self
         blueValueTextField.delegate = self
         
+        colorMixView.backgroundColor = mixColor
+        
         redSlider.minimumTrackTintColor = .red
         greenSlider.minimumTrackTintColor = .green
         
-        setupValue(for: redSlider, greenSlider, blueSlider)
-        
         getSliderValue()
-        setupColor()
+        setValue(for: redValueLabel, greenValueLabel, blueValueLabel)
+        setValue(for: redValueTextField, greenValueTextField, blueValueTextField)
     }
     
     override func viewWillLayoutSubviews() {
@@ -50,34 +51,49 @@ class MixColorViewController: UIViewController {
         view.endEditing(true)
     }
  
-    @IBAction func redSliderAction(_ sender: UISlider) {
-        updateValue(for: sender)
+    @IBAction func rgbSliderAction(_ sender: UISlider) {
+        switch sender {
+        case redSlider:
+            setValue(for: redValueLabel)
+            setValue(for: redValueTextField)
+        case greenSlider:
+            setValue(for: greenValueLabel)
+            setValue(for: greenValueTextField)
+        default:
+            setValue(for: blueValueLabel)
+            setValue(for: blueValueTextField)
+        }
         setupColor()
     }
     
     @IBAction func doneButtonTapped(_ sender: Any) {
-        delegate.setColor(CGFloat(redSlider.value), CGFloat(greenSlider.value), CGFloat(blueSlider.value))
-        
+        delegate.setColor(colorMixView.backgroundColor ?? .white)
         dismiss(animated: true, completion: nil)
     }
     
-    private func setupValue(for sliders: UISlider...) {
-        sliders.forEach { slider in
-            updateValue(for: slider)
+    private func setValue(for labels: UILabel...) {
+        labels.forEach { label in
+            switch label {
+            case redValueLabel:
+                label.text = string(from: redSlider)
+            case greenValueLabel:
+                label.text = string(from: greenSlider)
+            default:
+                label.text = string(from: blueSlider)
+            }
         }
     }
     
-    private func updateValue(for slider: UISlider) {
-        switch slider {
-        case redSlider:
-            redValueLabel.text = string(from: redSlider)
-            redValueTextField.text = string(from: redSlider)
-        case greenSlider:
-            greenValueLabel.text = string(from: greenSlider)
-            greenValueTextField.text = string(from: greenSlider)
-        default:
-            blueValueLabel.text = string(from: blueSlider)
-            blueValueTextField.text = string(from: blueSlider)
+    private func setValue(for textFields: UITextField...) {
+        textFields.forEach { textField in
+            switch textField {
+            case redValueTextField:
+                textField.text = string(from: redSlider)
+            case greenValueTextField:
+                textField.text = string(from: greenSlider)
+            default:
+                textField.text = string(from: blueSlider)
+            }
         }
     }
     
@@ -89,12 +105,21 @@ class MixColorViewController: UIViewController {
             alpha: 1)
     }
     
+    private func getSliderValue() {
+        let ciColor = CIColor(color: mixColor)
+        
+        redSlider.value = Float(ciColor.red)
+        greenSlider.value = Float(ciColor.green)
+        blueSlider.value = Float(ciColor.blue)
+    }
+    
     private func string(from slider: UISlider) -> String {
         String(format:"%.2f", slider.value)
     }
     
     private func alertController() {
-            let alertController = UIAlertController(title: "Ошибка", message: "Диапазон ввводимый чисел от 0 до 1", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Ошибка", message: "Диапазон ввводимый чисел от 0 до 1", preferredStyle: .alert)
+        
         let okAction = UIAlertAction(title: "Ok", style: .cancel) { _ in
             if self.redValueTextField.isFirstResponder {
                 self.redValueTextField.text = ""
@@ -104,44 +129,58 @@ class MixColorViewController: UIViewController {
                 self.blueValueTextField.text = ""
             }
             }
-            alertController.addAction(okAction)
+        alertController.addAction(okAction)
+        
         present(alertController, animated: true, completion: nil)
     }
     
-    private func getSliderValue() {
-        let ciColor = CIColor(color: mixColor)
-        let red = ciColor.red
-        let blue = ciColor.blue
-        let green = ciColor.green
-
-        redSlider.value = Float(red)
-        greenSlider.value = Float(green)
-        blueSlider.value = Float(blue)
+    @objc private func didTapDone() {
+        view.endEditing(true)
     }
 }
 
 extension MixColorViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard Float(textField.text!)! <= 1  else { alertController()
-            return false
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard let text = textField.text else { return }
+        
+        if let currentValue = Float(text),  currentValue <= 1 {
+        switch textField {
+        case redValueTextField:
+            redSlider.setValue(currentValue, animated: true)
+            setValue(for: redValueLabel)
+        case greenValueTextField:
+            greenSlider.setValue(currentValue, animated: true)
+            setValue(for: greenValueLabel)
+        default:
+            blueSlider.setValue(currentValue, animated: true)
+            setValue(for: blueValueLabel)
         }
-        updateValueIfTextFieldIsEditing(for: textField)
         setupColor()
-        return true
+        return
+    }
+        alertController()
+  }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        textField.inputAccessoryView = keyboardToolbar
+        
+        let doneButton = UIBarButtonItem(
+            barButtonSystemItem: .done,
+            target: self,
+            action: #selector(didTapDone)
+        )
+        
+        let flexBarButton = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
+        
+        keyboardToolbar.items = [flexBarButton, doneButton]
     }
     
-    private func updateValueIfTextFieldIsEditing(for textField: UITextField) {
-        switch textField.isEditing {
-        case redValueTextField.isEditing:
-            redValueLabel.text = redValueTextField.text
-            redSlider.value = Float(redValueTextField.text ?? "")!
-        case greenValueTextField.isEditing:
-            greenValueLabel.text = greenValueTextField.text
-            greenSlider.value = Float(greenValueTextField.text ?? "")!
-        default:
-            blueValueLabel.text = blueValueTextField.text
-            blueSlider.value = Float(blueValueTextField.text ?? "")!
-        }
-        textField.resignFirstResponder()
-    }
 }

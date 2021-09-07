@@ -8,21 +8,21 @@
 import UIKit
 
 protocol MixColorViewControllerDelegate {
-    func setColor(_ redValue: CGFloat, _ greenValue: CGFloat, _ blueValue: CGFloat)
+    func setColor(_ color: UIColor)
 }
 
 class StartViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let mixColorVC = segue.destination as? MixColorViewController else { return }
-        mixColorVC.mixColor = view.backgroundColor
         mixColorVC.delegate = self
+        mixColorVC.mixColor = view.backgroundColor
     }
 }
 
 extension StartViewController: MixColorViewControllerDelegate {
-    func setColor(_ redValue: CGFloat, _ greenValue: CGFloat, _ blueValue: CGFloat) {
-        view.backgroundColor = UIColor(red: redValue, green: greenValue, blue: blueValue, alpha: 1)
+    func setColor(_ color: UIColor) {
+        view.backgroundColor = color
     }
 }
     
